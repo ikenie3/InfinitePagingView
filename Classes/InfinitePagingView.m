@@ -61,20 +61,25 @@
         _innerScrollView.scrollEnabled = YES;
         _innerScrollView.showsHorizontalScrollIndicator = NO;
         _innerScrollView.showsVerticalScrollIndicator = NO;
-				_innerScrollView.scrollsToTop = NO;
+        _innerScrollView.scrollsToTop = NO;
         _scrollDirection = InfinitePagingViewHorizonScrollDirection;
         [self addSubview:_innerScrollView];
-        self.pageSize = frame.size;
     }
+    self.pageSize = frame.size;
+    [self layoutPages];
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView *hitView = [super hitTest:point withEvent:event];
-    if (nil != hitView) {
+    BOOL isHandleTapEvent = YES;
+    if (nil != delegate && [delegate respondsToSelector:@selector(pagingView:isHandleHitView:)]) {
+        isHandleTapEvent = [delegate pagingView:self isHandleHitView:hitView];
+    }
+    if (nil != hitView && isHandleTapEvent) {
         return _innerScrollView;
     }
-    return nil;
+    return hitView;
 }
 
 #pragma mark - Public methods

@@ -44,6 +44,11 @@
 - (void)pagingView:(InfinitePagingView *)pagingView didEndDragging:(UIScrollView *)scrollView;
 - (void)pagingView:(InfinitePagingView *)pagingView willBeginDecelerating:(UIScrollView *)scrollView;
 - (void)pagingView:(InfinitePagingView *)pagingView didEndDecelerating:(UIScrollView *)scrollView atPageIndex:(NSInteger)pageIndex;
+/**
+ @return YESが返されたとき、hitViewのタッチイベントを自身のタッチイベントとして処理する
+ */
+- (BOOL)pagingView:(InfinitePagingView *)pagingView isHandleHitView:(UIView *)hitView;
+
 @end
 
 /*!
